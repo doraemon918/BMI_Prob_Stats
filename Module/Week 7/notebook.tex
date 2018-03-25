@@ -1,0 +1,752 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework Week 7}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-week-7}{%
+\section{Homework Week 7}\label{homework-week-7}}
+
+For each problem state:
+
+the null and alternative hypotheses, whether the test is a one-tail or
+two-tailed test, conduct the appropriate test and the tests assumptions,
+state and support your conclusions. Assume the outcome variable is
+\textasciitilde{}N(μ,σ2) and α = .05.
+
+Also evaluate the data based on the material reviewed in class, does the
+data seem to follow a normal distribution? are there outliers that could
+affect the data? if there are multiple samples do they have equal
+variance, does the data need to be transformed?
+
+Not everything needs to be applied to every dataset, however, you must
+judge what are the most relevant plots or analysis to draw conclusions
+from the data based on the hypothesis.
+
+    \hypertarget{a.}{%
+\subsubsection{A.}\label{a.}}
+
+A random sample of 30 employes from a large financial organization has
+been selected to evaluate their learning performance after a series of
+seminars. Each subject was given a test that has a national average
+score of 50. Has the seminar programs statistically improved the scores
+of the employes?
+
+These are the scores:
+
+02 54 69 47 66 44 56 55 67 47 58 39 42 45 72 72 69 75 57 54 34 62 50 58
+48 63 74 45 71 59
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} score \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{02}\PY{p}{,} \PY{l+m}{54}\PY{p}{,} \PY{l+m}{69}\PY{p}{,} \PY{l+m}{47}\PY{p}{,} \PY{l+m}{66}\PY{p}{,} \PY{l+m}{44}\PY{p}{,} \PY{l+m}{56}\PY{p}{,} \PY{l+m}{55}\PY{p}{,} \PY{l+m}{67}\PY{p}{,} \PY{l+m}{47}\PY{p}{,} \PY{l+m}{58}\PY{p}{,} \PY{l+m}{39}\PY{p}{,} \PY{l+m}{42}\PY{p}{,} \PY{l+m}{45}\PY{p}{,} \PY{l+m}{72}\PY{p}{,} \PY{l+m}{72}\PY{p}{,} \PY{l+m}{69}\PY{p}{,} \PY{l+m}{75}\PY{p}{,} \PY{l+m}{57}\PY{p}{,} \PY{l+m}{54}\PY{p}{,} \PY{l+m}{34}\PY{p}{,} \PY{l+m}{62}\PY{p}{,} \PY{l+m}{50}\PY{p}{,} \PY{l+m}{58}\PY{p}{,} \PY{l+m}{48}\PY{p}{,} \PY{l+m}{63}\PY{p}{,} \PY{l+m}{74}\PY{p}{,} \PY{l+m}{45}\PY{p}{,} \PY{l+m}{71}\PY{p}{,} \PY{l+m}{59}\PY{p}{)}
+         \PY{k+kp}{mean}\PY{p}{(}score\PY{p}{)}
+         sd\PY{p}{(}score\PY{p}{)}
+         
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{probability of being in average score of 50\PYZdq{}}
+         pnorm\PY{p}{(}\PY{l+m}{50}\PY{p}{,}\PY{k+kp}{mean}\PY{p}{(}score\PY{p}{)}\PY{p}{,} sd\PY{p}{(}score\PY{p}{)}\PY{p}{)}
+         
+         dscore \PY{o}{=} density\PY{p}{(}score\PY{p}{)}
+         boxplot\PY{p}{(}score\PY{p}{,} \PY{l+m}{50}\PY{p}{)}
+         plot\PY{p}{(}dscore\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}
+         \PY{l+s}{The null hypothesis is the seminar doesn\PYZsq{}t have affect to employee.}
+         \PY{l+s}{The alternative hypothesis is the seminar have affect to employee.}
+         
+         \PY{l+s}{\PYZdq{}}
+         \PY{l+s}{\PYZdq{}}
+         \PY{l+s}{From the problem A, we can see from both the calculation and the graphs that the averages of the employees are greater than }
+         \PY{l+s}{national average score of 50.}
+         
+         
+         \PY{l+s}{\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}critical value}
+         qt\PY{p}{(}\PY{l+m}{0.975}\PY{p}{,}\PY{l+m}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    55.1333333333333
+
+    
+    15.0899220384479
+
+    
+    'probability of being in average score of 50'
+
+    
+    0.366859400115559
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    '
+The null hypothesis is the seminar doesn\textbackslash{}'t have affect to employee.
+The alternative hypothesis is the seminar have affect to employee.
+
+'
+
+    
+    '
+From the problem A, we can see from both the calculation and the graphs that the averages of the employees are greater than 
+national average score of 50.
+
+
+'
+
+    
+    2.04227245630124
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{b.}{%
+\subsubsection{B.}\label{b.}}
+
+A study looked at various cardiovascular risk factors in children, as
+measured at birth and during their first five years of life. One of the
+results for newborns were to study differences in bits per minute from
+two different races. Based on the data, Is there evidence that the
+number of heart beats/min of newborn white children is fewer than that
+of newborn black children?
+
+The data is located in this working directory with the name
+Cardiovascular\_children.csv
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} cardio\PYZus{}child \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}file \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Cardiovascular\PYZus{}children.csv\PYZdq{}}\PY{p}{,}
+                               header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                               dec \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{.\PYZdq{}}\PY{p}{)}
+         \PY{k+kp}{head}\PY{p}{(}cardio\PYZus{}child\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+ bpm & race\\
+\hline
+	 119   & white\\
+	 117   & white\\
+	 131   & white\\
+	 123   & white\\
+	 135   & white\\
+	 128   & white\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{l+s}{\PYZsq{}}\PY{l+s}{null hypothesis is the number of heart beat per min of white newborn is fewever than that of black newborn\PYZsq{}}
+         cardio\PYZus{}w \PY{o}{\PYZlt{}\PYZhy{}} cardio\PYZus{}child\PY{p}{[}cardio\PYZus{}child\PY{o}{\PYZdl{}}race \PY{o}{==}\PY{l+s}{\PYZsq{}}\PY{l+s}{white\PYZsq{}}\PY{p}{,}\PY{p}{]}
+         cardio\PYZus{}b \PY{o}{\PYZlt{}\PYZhy{}} cardio\PYZus{}child\PY{p}{[}cardio\PYZus{}child\PY{o}{\PYZdl{}}race \PY{o}{==}\PY{l+s}{\PYZsq{}}\PY{l+s}{black\PYZsq{}}\PY{p}{,}\PY{p}{]}
+         white\PYZus{}c \PY{o}{\PYZlt{}\PYZhy{}} cardio\PYZus{}w\PY{o}{\PYZdl{}}bpm
+         black\PYZus{}c \PY{o}{\PYZlt{}\PYZhy{}} cardio\PYZus{}b\PY{o}{\PYZdl{}}bpm
+         
+         \PY{l+s}{\PYZdq{}}
+         \PY{l+s}{var is unequaled and not paired}
+         \PY{l+s}{\PYZdq{}}
+         t.test\PY{p}{(}white\PYZus{}c\PY{p}{,}black\PYZus{}c\PY{p}{,} var.equal \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} paired \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+         qt\PY{p}{(}\PY{l+m}{0.975}\PY{p}{,} \PY{l+m}{37.589}\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{null hypothesis showed it\PYZsq{}s true\PYZdq{}}
+\end{Verbatim}
+
+
+    'null hypothesis is the number of heart beat per min of white newborn is fewever than that of black newborn'
+
+    
+    '
+var is unequaled and not paired
+'
+
+    
+    
+    \begin{verbatim}
+
+	Welch Two Sample t-test
+
+data:  white_c and black_c
+t = -5.7814, df = 37.589, p-value = 1.178e-06
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -16.730986  -8.050501
+sample estimates:
+mean of x mean of y 
+ 121.2893  133.6800 
+
+    \end{verbatim}
+
+    
+    2.02512131384041
+
+    
+    'null hypothesis showed it\textbackslash{}'s true'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} dwhite \PY{o}{\PYZlt{}\PYZhy{}} density\PY{p}{(}white\PYZus{}c\PY{p}{)}
+         dblack \PY{o}{\PYZlt{}\PYZhy{}} density\PY{p}{(}black\PYZus{}c\PY{p}{)}
+         plot\PY{p}{(}dwhite\PY{p}{)}
+         lines\PY{p}{(}dblack\PY{p}{,}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{}install.packages(\PYZdq{}car\PYZdq{})}
+         \PY{k+kn}{library}\PY{p}{(}car\PY{p}{)}
+         Boxplot\PY{p}{(}bpm \PY{o}{\PYZti{}} race\PY{p}{,} 
+                 ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{bpm\PYZdq{}}\PY{p}{,}
+                 xlab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{race\PYZdq{}}\PY{p}{,} 
+                 data\PY{o}{=} cardio\PYZus{}child\PY{p}{,}
+                 main \PY{o}{=} \PY{k+kp}{expression}\PY{p}{(}italic\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Relation between bmp and race of newborn\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         stripchart\PY{p}{(}bpm \PY{o}{\PYZti{}} race\PY{p}{,} data \PY{o}{=} cardio\PYZus{}child\PY{p}{,} 
+                    vertical \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{jitter\PYZdq{}}\PY{p}{,} 
+                    pch \PY{o}{=} \PY{l+m}{21}\PY{p}{,} 
+                    add \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{0.5}\PY{p}{)}\PY{p}{)} 
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{heart beat per minute of the black newborn are much higher than white newborn. However, the amount of the data we have for black newborn is insuficient for the accuracy of the statistic\PYZsq{}}
+         
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{there are also a lot of outliers \PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item '139'
+\item '84'
+\item '97'
+\end{enumerate*}
+
+
+    
+    'heart beat per minute of the black newborn are much higher than white newborn. However, the amount of the data we have for black newborn is insuficient for the accuracy of the statistic'
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{c.}{%
+\subsubsection{C.}\label{c.}}
+
+A 1980 study was conducted whose purpose was to compare the indoor air
+quality in offices where smoking was permitted with that in offices
+where smoking was not permitted. Measurements were made of carbon
+monoxide at 1:20 pm in work areas where smoking was permitted and in
+areas where smoking was prohibited with the following results:
+
+Does CO vary differently in the two types of working environments?
+
+The data is located in this working directory with the name smoking.csv
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} smoking \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}file \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{smoking.csv\PYZdq{}}\PY{p}{,}
+                               header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                               dec \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{.\PYZdq{}}\PY{p}{)}
+         \PY{k+kp}{tail}\PY{p}{(}smoking\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+  & permitted & prohibited\\
+\hline
+	56 & NA &  6\\
+	57 & NA &  7\\
+	58 & NA &  3\\
+	59 & NA &  7\\
+	60 & NA &  9\\
+	61 & NA & 10\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} boxplot\PY{p}{(}smoking\PY{p}{)}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{we can see that the air quality of area permitted smoking is having the mean of carbon monoxide level higher than the prohibited area\PYZsq{}}
+\end{Verbatim}
+
+
+    'we can see that the air quality of area permitted smoking is having the mean of carbon monoxide level higher than the prohibited area'
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} t.test\PY{p}{(}na.omit\PY{p}{(}smoking\PY{o}{\PYZdl{}}permitted\PY{p}{)}\PY{p}{,}smoking\PY{o}{\PYZdl{}}prohibited\PY{p}{,} var.equal\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{this is unequal pair test, since there are some null/na values in the permitted column\PYZsq{}}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{t\PYZhy{}test showed that the mean of carbon monoxide for permitted is higher than prohibited.\PYZsq{}}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Welch Two Sample t-test
+
+data:  na.omit(smoking$permitted) and smoking$prohibited
+t = 2.7313, df = 26.443, p-value = 0.01109
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 1.077706 7.612130
+sample estimates:
+mean of x mean of y 
+10.640000  6.295082 
+
+    \end{verbatim}
+
+    
+    'this is unequal pair test, since there are some null/na values in the permitted column'
+
+    
+    't-test showed that the mean of carbon monoxide for permitted is higher than prohibited.'
+
+    
+    \hypertarget{d.}{%
+\subsubsection{D.}\label{d.}}
+
+A study was conducted to investigate the effect of physical training on
+the serum cholesterol level. Thirty subjects participated in the study.
+Prior to training, blood samples were taken to determine the cholesterol
+level of each subject. Then the subjects were put through a training
+program that centered on daily running and jogging. At the end of the
+training period, blood samples were taken again and a second reading on
+the serum cholesterol level was obtained. Is there an effect of the
+training on cholesterol levels?
+
+The data is located in this working directory with the name training.csv
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} training \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}file \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{training.csv\PYZdq{}}\PY{p}{,}
+                               header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                               dec \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{.\PYZdq{}}\PY{p}{)}
+         \PY{k+kp}{tail}\PY{p}{(}training\PY{p}{)}
+         pre \PY{o}{\PYZlt{}\PYZhy{}} training\PY{o}{\PYZdl{}}Pre.training.level.x..mg.Dl.
+         pre
+         post \PY{o}{\PYZlt{}\PYZhy{}} training\PY{o}{\PYZdl{}}Post.training.level.x..mg.Dl.
+         post
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllll}
+  & Subject & Pre.training.level.x..mg.Dl. & Post.training.level.x..mg.Dl. & X & X.1 & X.2\\
+\hline
+	25 & 25  & 192 & 211 & NA  & NA  & NA \\
+	26 & 26  &  11 &  22 & NA  & NA  & NA \\
+	27 & 27  & 332 & 245 & NA  & NA  & NA \\
+	28 & 28  & 342 & 290 & NA  & NA  & NA \\
+	29 & 29  & 210 & 254 & NA  & NA  & NA \\
+	30 & 30  & 312 & 207 & NA  & NA  & NA \\
+\end{tabular}
+
+
+    
+    \begin{enumerate*}
+\item 182
+\item 232
+\item 191
+\item 210
+\item 148
+\item 249
+\item 276
+\item 213
+\item 241
+\item 480
+\item 262
+\item 420
+\item 240
+\item 210
+\item 184
+\item 81
+\item 190
+\item 225
+\item 400
+\item 412
+\item 212
+\item 230
+\item 183
+\item 278
+\item 192
+\item 11
+\item 332
+\item 342
+\item 210
+\item 312
+\end{enumerate*}
+
+
+    
+    \begin{enumerate*}
+\item 198
+\item 210
+\item 194
+\item 210
+\item 135
+\item 220
+\item 219
+\item 161
+\item 210
+\item 303
+\item 220
+\item 205
+\item 150
+\item 320
+\item 150
+\item 207
+\item 215
+\item 272
+\item 145
+\item 198
+\item 159
+\item 245
+\item 291
+\item 150
+\item 211
+\item 22
+\item 245
+\item 290
+\item 254
+\item 207
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{l+s}{\PYZsq{}}\PY{l+s}{null hypothesis is there is no changes in pre training and post training\PYZsq{}}
+         boxplot\PY{p}{(}pre\PY{p}{,}post\PY{p}{)}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{from the boxplot, we can see that the post training has lower mean of cholesterol than the pre training\PYZsq{}}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{there are some outliers, but they are few enough to affect the outcome of the data.\PYZsq{}}
+\end{Verbatim}
+
+
+    'null hypothesis is there is no changes in pre training and post training'
+
+    
+    'from the boxplot, we can see that the post training has lower mean of cholesterol than the pre training'
+
+    
+    'there are some outliers, but they are few enough to affect the outcome of the data.'
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} t.test\PY{p}{(}pre\PY{p}{,}post\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         \PY{l+s}{\PYZsq{}}\PY{l+s}{this test showed the null hypothesis is false and the alternate is post training is lower than the pre training\PYZsq{}}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Paired t-test
+
+data:  pre and post
+t = 2.2217, df = 29, p-value = 0.03427
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  2.996812 72.469854
+sample estimates:
+mean of the differences 
+               37.73333 
+
+    \end{verbatim}
+
+    
+    'this test showed the null hypothesis is false and the alternate is post training is lower than the pre training'
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
